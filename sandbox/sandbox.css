@@ -33,6 +33,41 @@
     background-color: rgba(255, 255, 255, .75);
 }
 
+.button {
+    width: 122px;
+    height: 61px;
+    background-color: #fff;
+    overflow: hidden;
+    position: relative;
+    clip-path: polygon(0 15px, 0 100%, 100% 100%, 100% 0, 15px 0);
+    border-radius: 18px 8px 8px 8px;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.button .inner {
+    box-sizing: border-box;
+    position: relative;
+    width: 118px;
+    height: 57px;
+    background-color: #7ea;
+    padding: 2px;
+    clip-path: polygon(0 15px, 0 100%, 100% 100%, 100% 0, 15px 0);
+    border-radius: 18px 8px 8px 8px;
+}
+
+.button .inner .label {
+    background-color: #fff;
+    width: 114px;
+    height: 24px;
+    position: absolute;
+    bottom: 2px;
+    border-radius: 0px 0px 5px 5px;
+    text-align: center;
+    user-select: none;
+}
+
+
 body {
     background-color: #b2b4b2;
 }
