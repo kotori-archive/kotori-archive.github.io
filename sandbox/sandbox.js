@@ -61,7 +61,6 @@
         const replaceAttributes = attribute => {
             while (attribute.value.match(regex)) {
                 const after = attribute.value.replace(regex, parameter[attribute.value.match(regex)[1]]);
-                console.log(attribute.value.match(regex)[1]);
                 attribute.ownerElement.setAttribute(attribute.name, after);
             }
         };
