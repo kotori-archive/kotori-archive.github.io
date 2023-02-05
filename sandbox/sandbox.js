@@ -1,9 +1,37 @@
 (() => {
     const $ = query => document.querySelector(query);
+    const $$ = query => document.querySelectorAll(query);
+    const BASE_PATH = "https://raw.githubusercontent.com/kotori-archive/";
+
+    const myCard = [
+        {"id": "3563", "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
+    ];
 
     function main() {
         console.log("Hello World!");
         initMenu();
+        loadCards();
+    }
+
+    function loadCards() {
+        const path = BASE_PATH + "resource-card/main/data.json";
+        fetch(path)
+            .then(response => response.json())
+            .then(json => showCards(json));
+    }
+
+    function showCards(data) {
+        console.log(data);
+        const memberList = $$(".member-list-row");
+        console.log(memberList);
+        myCard.forEach((card, index) => {
+            const icon = $(".template .card-icon").cloneNode(true);
+            memberList[index % 4].appendChild(icon);
+        });
     }
 
     function initMenu() {
