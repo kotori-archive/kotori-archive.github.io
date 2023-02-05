@@ -12,7 +12,6 @@
     ];
 
     function main() {
-        console.log("Hello World!");
         initMenu();
         loadCards();
     }
@@ -27,7 +26,6 @@
     function showCards(data) {
         console.log(data);
         const memberList = $$(".member-list-row");
-        console.log(memberList);
         myCard.forEach((card, index) => {
             const icon = $(".template .card-icon").cloneNode(true);
             memberList[index % 4].appendChild(icon);
@@ -35,8 +33,6 @@
     }
 
     function initMenu() {
-        console.log($(".template .button"));
-        const add = parameter => $("#menu").appendChild(button(parameter));
         [
             {
                 "text": "ホーム",
