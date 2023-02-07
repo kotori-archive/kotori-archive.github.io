@@ -5,9 +5,10 @@
     background-color: #eee;
     position: relative;
     background-image: url("background.png");
+    overflow: hidden;
 }
 
-.member-list-outer {
+.member-list {
     padding: 2px 0px;
     background-color: #fff;
     position: absolute;
@@ -15,7 +16,7 @@
     width: 100%;
 }
 
-.member-list-inner {
+.member-list .inner {
     box-sizing: border-box;
     border-top: solid 2px #cecbce;
     border-bottom: solid 2px #cecbce;
@@ -35,9 +36,108 @@
     background-color: rgba(255, 255, 255, .75);
 }
 
-.member-list-row .card-icon {
+.member-list .inner .row .card-icon {
     margin-bottom: 8px;
     margin-right: 8px;
+}
+
+.member-detail .image {
+    position: absolute;
+    left: 138px;
+    top: 50px;
+    width: 352px;
+    height: 495px;
+    background-image: url("https://raw.githubusercontent.com/kotori-archive/resource-card/main/image/3563_0.png");
+    background-size: cover;
+}
+
+.member-detail .image.kill {
+    left: -352px;
+    opacity: 0;
+    transition: left 800ms, opacity 800ms;
+}
+
+.member-detail .info-panel {
+    display: block;
+    box-sizing: border-box;
+    padding: 2px;
+    border-radius: 22px;
+    background-color: #fff;
+    position: absolute;
+    right: 124px;
+    top: 117px;
+}
+
+.member-detail .info-panel.kill {
+    right: -465px;
+    opacity: 0;
+    transition: right 800ms, opacity 800ms;
+}
+
+.member-detail .info-panel .inner {
+    box-sizing: border-box;
+    border: solid 2px #cbcbcb;
+    border-radius: 18px;
+    padding-left: 16px;
+    width: 460px;
+    height: 376px;
+}
+
+.member-detail .info-panel .status-bar {
+    display: flex;
+    gap: 2px;
+}
+
+.member-detail .info-panel .status-bar .status {
+    width: 114px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: #bfbfbf;
+    text-align: center;
+    position: relative;
+    left: 2px;
+    font-family: "status-number";
+    font-size: 28px;
+    padding-top: 1px;
+    user-select: none;
+}
+
+.member-detail .info-panel .status-bar .stamina {
+    width: 78px;
+    left: 0px;
+}
+
+.member-detail .info-panel .status-bar .smile {
+    background-color: #fcc9d1;
+    color: #f9639d;
+}
+
+.member-detail .info-panel .status-bar .pure {
+    background-color: #99e6d8;
+    color: #06c32c;
+}
+
+.member-detail .info-panel .status-bar .cool {
+    background-color: #70d0eb;
+    color: #09e;
+}
+
+.button-back {
+    display: inline-block;
+    background-color: #fff;
+    padding: 2px;
+    border-radius: 27px;
+    cursor: pointer;
+    position: absolute;
+    left: 90px;
+}
+
+.button-back .inner {
+    box-sizing: border-box;
+    width: 75px;
+    height: 46px;
+    border-radius: 23px;
+    background-color: #f69;
 }
 
 .button {
@@ -97,6 +197,7 @@
     background-image: url("https://raw.githubusercontent.com/kotori-archive/resource-card/main/image/3563_0.png");
     background-position: left -65px top -30px;
     background-size: 200%;
+    cursor: pointer;
 }
 
 /* #42cd09 */
@@ -105,4 +206,13 @@
 
 body {
     background-color: #b2b4b2;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+@font-face {
+    font-family: status-number;
+    src: url("font/Yantramanav-Bold.ttf");
 }
