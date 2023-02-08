@@ -80,8 +80,56 @@
     border: solid 2px #cbcbcb;
     border-radius: 18px;
     padding-left: 16px;
+    padding-top: 8px;
     width: 460px;
     height: 376px;
+}
+
+.member-detail .info-panel .basic {
+    display: flex;
+    margin-top: 14px;
+    font-size: 21px;
+    user-select: none;
+}
+
+.member-detail .info-panel .basic .label {
+    color: #5a7e8d;
+    font-weight: 600;
+    text-align: right;
+    width: 58px;
+}
+
+.member-detail .info-panel .basic .label div {
+    margin-bottom: 9px;
+}
+
+.member-detail .info-panel .basic .values div {
+    text-align: right;
+}
+
+.member-detail .info-panel .basic .values .row {
+    display: flex;
+    margin-bottom: 9px;
+}
+
+.member-detail .info-panel .basic .values .value {
+    width: 53px;
+    font-size: 23px;
+    position: relative;
+    top: -4px;
+}
+
+.member-detail .info-panel .basic .values .slash {
+    padding-left: 4px;
+    position: relative;
+    top: -2px;
+}
+
+.member-detail .info-panel .basic .values .max-value {
+    width: 34px;
+    font-size: 18px;
+    position: relative;
+    top: -1px;
 }
 
 .member-detail .info-panel .status-bar {
