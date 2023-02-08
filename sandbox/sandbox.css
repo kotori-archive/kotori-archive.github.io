@@ -6,6 +6,7 @@
     position: relative;
     background-image: url("background.png");
     overflow: hidden;
+    font-family: "main";
 }
 
 .member-list {
@@ -168,12 +169,17 @@
 }
 
 .button .inner .label {
+    box-sizing: border-box;
     background-color: #fff;
+    color: #636363;
+    text-shadow: #fafae9 0px 0px 2px;
     width: 114px;
     height: 24px;
     position: absolute;
     bottom: 2px;
     border-radius: 0px 0px 5px 5px;
+    padding-top: 2px;
+    font-size: 19px;
     text-align: center;
     user-select: none;
 }
@@ -215,4 +221,9 @@ body {
 @font-face {
     font-family: status-number;
     src: url("font/Yantramanav-Bold.ttf");
+}
+
+@font-face {
+    font-family: main;
+    src: url("font/KosugiMaru-Regular.ttf");
 }
