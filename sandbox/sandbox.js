@@ -2,19 +2,23 @@
     const $ = query => document.querySelector(query);
     const $$ = query => document.querySelectorAll(query);
     const BASE_PATH = "https://raw.githubusercontent.com/kotori-archive/";
+    const backButton = {
+        "action": () => {},
+        "clear": () => backButton.action = () => {},
+    };
 
     const myCard = [
-        {"id": "3563", "status": {"smile": 6040, "pure": 22266, "cool": 9912}, "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
-        {"id": "3563", "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 7, "value": ["64", "43%", "19485"]}},
-        {"id": "3563", "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 6, "value": ["64", "43%", "19485"]}},
-        {"id": "3563", "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 5, "value": ["64", "43%", "19485"]}},
-        {"id": "3563", "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 4, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 6040, "pure": 22266, "cool": 9912}, "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 7, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 6, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 5, "value": ["64", "43%", "19485"]}},
+        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 4, "value": ["64", "43%", "19485"]}},
     ];
 
     function main() {
         initMenu();
         loadCards();
-        $(".button-back").addEventListener("click", () => backButton());
+        $(".button-back").addEventListener("click", () => backButton.action());
     }
 
     function loadCards() {
@@ -31,14 +35,14 @@
             const icon = $(".template .card-icon").cloneNode(true);
             icon.addEventListener("click", () => {
                 $(".member-list").classList.toggle("hide");
-                showDetails(card);
+                showDetails(card, data.filter(master => master.id == card.id)[0]);
+                backButton.action = () => closeCardDetail();
             });
             memberList[index % 4].appendChild(icon);
         });
     }
 
-    function backButton() {
-        console.log("Back Button");
+    function closeCardDetail() {
         $(".member-detail .info-panel").classList.toggle("kill");
         $(".member-detail .image").classList.toggle("kill");
         setTimeout(() => {
@@ -47,19 +51,41 @@
             $(".member-detail .info-panel").classList.toggle("kill");
             $(".member-detail .image").classList.toggle("kill");
         }, 1000);
+        backButton.clear();
     }
 
-    function showDetails(card) {
-        console.log(card);
+    function showDetails(card, master) {
         const detail = $(".member-detail");
+        const levelCurrent = $("#levelCurrent");
+        const levelMax = $("#levelMax");
+        const kizunaCurrent = $("#kizunaCurrent");
+        const kizunaMax = $("#kizunaMax");
         const smile = $(".member-detail .smile");
         const pure = $(".member-detail .pure");
         const cool = $(".member-detail .cool");
+        const skillName = $("#skillName");
+        const skillDescription = $("#skillDescription");
+        const centerSkillName = $("#centerSkillName");
+        const centerSkillDescription = $("#centerSkillDescription");
 
+        levelCurrent.innerText = card.level.current;
+        levelMax.innerText = card.level.max;
+        kizunaCurrent.innerText = card.kizuna.current;
+        kizunaMax.innerText = card.kizuna.max;
         smile.innerText = card.status.smile;
         pure.innerText = card.status.pure;
         cool.innerText = card.status.cool;
+        skillName.innerText = master.skill.name;
+        skillDescription.innerText = renderSkill(master.skill.description, card.skill);
+        centerSkillName.innerText = master.centerSkill.name;
+        centerSkillDescription.innerText = master.centerSkill.description;
         detail.classList.toggle("hide");
+    }
+
+    function renderSkill(description, skill) {
+        return skill.value.reduce((previous, current) => {
+            return previous.replace("{}", current);
+        }, description);
     }
 
     function initMenu() {

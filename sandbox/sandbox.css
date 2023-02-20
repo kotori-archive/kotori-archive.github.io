@@ -132,6 +132,26 @@
     top: -1px;
 }
 
+.member-detail .info-panel .skill {
+    display: flex;
+    margin-top: 7px;
+    margin-bottom: 6px;
+    font-size: 21px;
+    user-select: none;
+    padding-right: 10px;
+}
+
+.member-detail .info-panel .skill .label {
+    color: #5a7e8d;
+    font-weight: 600;
+    min-width: 53px;
+}
+
+.member-detail .info-panel .skill .content {
+    font-size: 18px;
+    line-height: 21px;
+}
+
 .member-detail .info-panel .status-bar {
     display: flex;
     gap: 2px;
@@ -149,6 +169,7 @@
     font-size: 28px;
     padding-top: 1px;
     user-select: none;
+    margin-bottom: 4px;
 }
 
 .member-detail .info-panel .status-bar .stamina {
@@ -169,6 +190,17 @@
 .member-detail .info-panel .status-bar .cool {
     background-color: #70d0eb;
     color: #09e;
+}
+
+.member-detail .info-panel .line {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAECAYAAAC3OK7NAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAARUlEQVQImWP8dePx/89z9zAwMDAw8Ca7MLCqyzBgA0yf5+5h+P/tJ8P/bz8ZYBoYGBgYPk3ewvBp8haEQqzasQBGYq0GAKiwHOX3KQ6GAAAAAElFTkSuQmCC);
+    height: 4px;
+    width: 424px;
+}
+
+.member-detail .info-panel .school-idol-skill {
+    height: 63px;
+    text-align: center;
 }
 
 .button-back {
@@ -252,6 +284,15 @@
     background-position: left -65px top -30px;
     background-size: 200%;
     cursor: pointer;
+}
+
+.card-icon .inner {
+    box-sizing: border-box;
+    width: 93px;
+    height: 93px;
+    border-radius: 50%;
+    border: solid 1px #fff;
+    background-color: rgb(0, 0, 0, 0);
 }
 
 /* #42cd09 */
