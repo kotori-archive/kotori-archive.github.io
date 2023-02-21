@@ -6,6 +6,16 @@
     function main() {
         $$("#input input").forEach(node => node.oninput = () => update());
         $("#change-image").onclick = () => setImage($("#image-id").value);
+        fetchCards();
+    }
+
+    function fetchCards() {
+        fetch("https://api.github.com/repos/kotori-archive/resource-card/contents/image", {
+            headers: {
+                "Accept": "application/vnd.github+json",
+                "X-GitHub-Api-Version": "2022-11-28",
+            }
+        }).then(response => console.log(response));
     }
 
     function update() {
