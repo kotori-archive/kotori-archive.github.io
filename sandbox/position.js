@@ -10,15 +10,38 @@
     }
 
     function fetchCards() {
-        fetch("https://api.github.com/repos/kotori-archive/resource-card/contents/image", {
-            headers: {
-                "Accept": "application/vnd.github+json",
-                "X-GitHub-Api-Version": "2022-11-28",
-            }
-        }).then(response => console.log(response));
+        const template = $("#template option");
+        const select = $("#card-list");
+        const listFiles = "https://api.github.com/repos/kotori-archive/resource-card/contents/image";
+        const preprocess = data => data.reduce((map, card) => (map[card.id] = card, map), {});
+        const parseCards = response => response
+            .map(file => file.name)
+            .filter(name => /[0-9]{4}_0\.png/.test(name))
+            .forEach(name => {
+                const node = template.cloneNode(true);
+                const id = name.match(/([0-9]{4})_0\.png/)[1];
+                node.innerText = name;
+                node.value = id;
+                select.appendChild(node);
+            });
+        let cards = null;
+        select.addEventListener("change", () => {
+            setImage(select.value);
+            update(cards[select.value].iconPosition);
+        });
+        fetch(BASE_PATH + "resource-card/main/data.json")
+            .then(response => response.json())
+            .then(json => (cards = preprocess(json), fetch(listFiles)))
+            .then(response => response.json())
+            .then(response => parseCards(response));
     }
 
-    function update() {
+    function update(overwrite) {
+        if (overwrite) {
+            $("#x").value = overwrite.x;
+            $("#y").value = overwrite.y;
+            $("#size").value = overwrite.scale;
+        }
         const x = $("#x").value;
         const y = $("#y").value;
         const size = $("#size").value;

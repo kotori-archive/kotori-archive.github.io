@@ -24,3 +24,8 @@
 input {
     width: 1000px;
 }
+
+select {
+    width: 400px;
+    height: 400px;
+}
