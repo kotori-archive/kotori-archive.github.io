@@ -9,10 +9,12 @@
 
     const myCard = [
         {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 6040, "pure": 22266, "cool": 9912}, "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
-        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 7, "value": ["64", "43%", "19485"]}},
-        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 6, "value": ["64", "43%", "19485"]}},
-        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 5, "value": ["64", "43%", "19485"]}},
-        {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 4, "value": ["64", "43%", "19485"]}},
+        {"id": "2117", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 7, "value": ["64", "43%", "19485"]}},
+        {"id": "1712", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 6, "value": ["64", "43%", "19485"]}},
+        {"id": "1454", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 5, "value": ["64", "43%", "19485"]}},
+        {"id": "2499", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 4, "value": ["64", "43%", "19485"]}},
+        {"id": "3512", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 4, "value": ["64", "43%", "19485"]}},
+        {"id": "3821", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 4, "value": ["64", "43%", "19485"]}},
     ];
 
     function main() {
@@ -23,19 +25,26 @@
 
     function loadCards() {
         const path = BASE_PATH + "resource-card/main/data.json";
+        const preprocess = data => data.reduce((map, card) => (map[card.id] = card, map), {});
         fetch(path)
             .then(response => response.json())
-            .then(json => showCards(json));
+            .then(json => showCards(preprocess(json)));
     }
 
     function showCards(data) {
-        console.log(data);
         const memberList = $$(".member-list .row");
         myCard.forEach((card, index) => {
             const icon = $(".template .card-icon").cloneNode(true);
+            const master = data[card.id];
+            const borderColor = {"smile": "db1e97", "pure": "42cd09", "cool": "5ebaf2"};
+            icon.style.backgroundPosition = `left ${master.iconPosition.x}px top ${master.iconPosition.y}px`;
+            icon.style.backgroundImage = `url("${BASE_PATH}/resource-card/main/image/${card.id}_0.png")`
+            icon.style.backgroundSize = `${master.iconPosition.scale}%`;
+            icon.style.border = `solid 6px #${borderColor[data[card.id].type]}`
             icon.addEventListener("click", () => {
                 $(".member-list").classList.toggle("hide");
-                showDetails(card, data.filter(master => master.id == card.id)[0]);
+                $(".member-list-status-bar").classList.toggle("hide");
+                showDetails(card, master);
                 backButton.action = () => closeCardDetail();
             });
             memberList[index % 4].appendChild(icon);
@@ -48,6 +57,7 @@
         setTimeout(() => {
             $(".member-list").classList.toggle("hide");
             $(".member-detail").classList.toggle("hide");
+            $(".member-list-status-bar").classList.toggle("hide");
             $(".member-detail .info-panel").classList.toggle("kill");
             $(".member-detail .image").classList.toggle("kill");
         }, 1000);
@@ -56,6 +66,7 @@
 
     function showDetails(card, master) {
         const detail = $(".member-detail");
+        const image = $("#detailImage");
         const levelCurrent = $("#levelCurrent");
         const levelMax = $("#levelMax");
         const kizunaCurrent = $("#kizunaCurrent");
@@ -68,6 +79,7 @@
         const centerSkillName = $("#centerSkillName");
         const centerSkillDescription = $("#centerSkillDescription");
 
+        image.style.backgroundImage = `url("${BASE_PATH}/resource-card/main/image/${card.id}_0.png")`
         levelCurrent.innerText = card.level.current;
         levelMax.innerText = card.level.max;
         kizunaCurrent.innerText = card.kizuna.current;
