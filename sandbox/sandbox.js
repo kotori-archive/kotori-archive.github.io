@@ -32,9 +32,12 @@
         loadCards();
         $(".button-back").addEventListener("click", () => backButton.action());
         $(".member-list").addEventListener("wheel", event => {
+            event.preventDefault();
             const direction = event.deltaY > 0 ? 1 : -1;
             const speed = 20;
             const list = $(".member-list .inner .scroll");
+            const maxScroll = list.scrollWidth - list.offsetWidth;
+            const result = Math.min(Math.max(0, parseInt(list.style.right, 10) + direction * speed), maxScroll);
             list.style.right = `${ result }px`
         });
     }
