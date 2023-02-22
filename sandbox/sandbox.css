@@ -27,6 +27,11 @@
     padding-left: 9px;
 }
 
+.member-list .inner .scroll {
+    position: relative;
+    transition: right 800ms ease-out;
+}
+
 .member-list-status-bar {
     box-sizing: border-box;
     border: solid 2px #fff;
@@ -35,6 +40,11 @@
     position: absolute;
     top: 504px;
     background-color: rgba(255, 255, 255, .75);
+}
+
+.member-list .inner .row{
+    overflow-x: visible;
+    white-space: nowrap;
 }
 
 .member-list .inner .row .card-icon {

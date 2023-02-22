@@ -17,10 +17,24 @@
         {"id": "3821", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 0, "pure": 0, "cool": 0}, "skill": {"level": 4, "value": ["64", "43%", "19485"]}},
     ];
 
+    if (true) {
+        for (let i = 0; i < 30; i++)
+            myCard.push({"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 6040, "pure": 22266, "cool": 9912}, "skill": {"level": 8, "value": ["64", "43%", "19485"]}});
+        for (let i = 0; i < 10; i++)
+            myCard.push({"id": "1712", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 6040, "pure": 22266, "cool": 9912}, "skill": {"level": 8, "value": ["64", "43%", "19485"]}});
+    }
+
     function main() {
         initMenu();
         loadCards();
         $(".button-back").addEventListener("click", () => backButton.action());
+        $(".member-list").addEventListener("wheel", event => {
+            const direction = event.deltaY > 0 ? 1 : -1;
+            const speed = 20;
+            const list = $(".member-list .inner .scroll");
+            const result = Math.max(0, parseInt(list.style.right, 10) + direction * speed);
+            list.style.right = `${ result }px`
+        });
     }
 
     function loadCards() {
