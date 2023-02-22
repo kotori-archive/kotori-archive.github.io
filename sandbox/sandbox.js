@@ -2,6 +2,8 @@
     const $ = query => document.querySelector(query);
     const $$ = query => document.querySelectorAll(query);
     const BASE_PATH = "https://raw.githubusercontent.com/kotori-archive/";
+    const audioContext = new AudioContext();
+    const audioMap = {};
     const backButton = {
         "action": () => {},
         "clear": () => backButton.action = () => {},
@@ -25,6 +27,7 @@
     }
 
     function main() {
+        initializeAudio();
         initMenu();
         loadCards();
         $(".button-back").addEventListener("click", () => backButton.action());
@@ -32,9 +35,32 @@
             const direction = event.deltaY > 0 ? 1 : -1;
             const speed = 20;
             const list = $(".member-list .inner .scroll");
-            const result = Math.max(0, parseInt(list.style.right, 10) + direction * speed);
             list.style.right = `${ result }px`
         });
+    }
+
+    function initializeAudio() {
+        const map = {
+            "buttonMain": "sound_effect/001.mp3",
+            "buttonCancel": "sound_effect/002.mp3",
+        };
+        const audioBasePath = `${ BASE_PATH }resource-audio/main/`
+        const loadAudio = async entry => await fetch(audioBasePath + entry[1])
+            .then(response => response.arrayBuffer())
+            .then(buffer => audioContext.decodeAudioData(buffer))
+            .then(buffer => audioMap[entry[0]] = buffer);
+        Object
+            .entries(map)
+            .forEach(entry => loadAudio(entry));
+        return audioMap;
+    }
+
+    function playAudio(id) {
+        audioContext.resume().then(() => console.log("resumed audio"));
+        const source = audioContext.createBufferSource();
+        source.buffer = audioMap[id];
+        source.connect(audioContext.destination);
+        source.start();
     }
 
     function loadCards() {
@@ -56,6 +82,7 @@
             icon.style.backgroundSize = `${master.iconPosition.scale}%`;
             icon.style.border = `solid 6px #${borderColor[data[card.id].type]}`
             icon.addEventListener("click", () => {
+                playAudio("buttonMain");
                 $(".member-list").classList.toggle("hide");
                 $(".member-list-status-bar").classList.toggle("hide");
                 showDetails(card, master);
@@ -66,6 +93,7 @@
     }
 
     function closeCardDetail() {
+        playAudio("buttonCancel");
         $(".member-detail .info-panel").classList.toggle("kill");
         $(".member-detail .image").classList.toggle("kill");
         setTimeout(() => {
