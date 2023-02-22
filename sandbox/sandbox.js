@@ -40,12 +40,18 @@
             const result = Math.min(Math.max(0, parseInt(list.style.right, 10) + direction * speed), maxScroll);
             list.style.right = `${ result }px`
         });
+        $("#start").addEventListener("click", () => {
+            audioContext.resume().then(() => console.log("resumed audio"));
+            playAudio("backgroundMain", true);
+            $("#start").classList.toggle("hide");
+        });
     }
 
     function initializeAudio() {
         const map = {
             "buttonMain": "sound_effect/001.mp3",
             "buttonCancel": "sound_effect/002.mp3",
+            "backgroundMain": "background/001.mp3",
         };
         const audioBasePath = `${ BASE_PATH }resource-audio/main/`
         const loadAudio = async entry => await fetch(audioBasePath + entry[1])
@@ -58,12 +64,14 @@
         return audioMap;
     }
 
-    function playAudio(id) {
-        audioContext.resume().then(() => console.log("resumed audio"));
+    function playAudio(id, loop) {
         const source = audioContext.createBufferSource();
         source.buffer = audioMap[id];
         source.connect(audioContext.destination);
         source.start();
+        if (loop) {
+            source.loop = true;
+        }
     }
 
     function loadCards() {
