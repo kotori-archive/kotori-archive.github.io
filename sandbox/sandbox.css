@@ -366,6 +366,58 @@ body {
     cursor: pointer;
 }
 
+.notice {
+    position: absolute;
+    top: 278px;
+    border-top: solid 2px #d4d4d4;
+    border-bottom: solid 2px #d4d4d4;
+    width: 100%;
+    animation-name: fade-start, fade-end;
+    animation-delay: 0ms, 2500ms;
+    animation-duration: 200ms, 200ms;
+    animation-fill-mode: forwards;
+}
+
+.notice .inner {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 64px;
+    border-top: solid 1px rbga(0, 0, 0, .5);
+    border-bottom: solid 1px rbga(0, 0, 0, .5);
+    background-color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 22px;
+}
+
+.notice .inner::after {
+    display: flex;
+    position: absolute;
+    top: 5px;
+    left: 134px;
+    content: "！";
+    align-items: center;
+    justify-content: center;
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #999;
+    font-weight: bold;
+    font-size: 36px;
+}
+
+@keyframes fade-start {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fade-end {
+    to { opacity: 0; }
+}
+
 @font-face {
     font-family: status-number;
     src: url("font/Yantramanav-Bold.ttf");

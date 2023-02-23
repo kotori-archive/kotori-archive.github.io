@@ -48,10 +48,18 @@
         updateInterfaceName("部員リスト");
     }
 
+    function showNotice(text) {
+        const notice = $(".template .notice").cloneNode(true);
+        notice.querySelector(".inner").innerText = text;
+        $(".container").appendChild(notice);
+        setTimeout(() => notice.remove(), 4000);
+    }
+
     function initializeAudio() {
         const map = {
             "buttonMain": "sound_effect/001.mp3",
             "buttonCancel": "sound_effect/002.mp3",
+            "disallow": "sound_effect/003.mp3",
             "backgroundMain": "background/001.mp3",
         };
         const audioBasePath = `${ BASE_PATH }resource-audio/main/`
@@ -172,36 +180,43 @@
                 "text": "ホーム",
                 "color": "#7ea",
                 "hoveredColor": "#8fb",
+                "click": () => showNotice("未実装") | playAudio("disallow"),
             },
             {
                 "text": "ストーリー",
                 "color": "#fb0",
                 "hoveredColor": "#fc1",
+                "click": () => showNotice("未実装") | playAudio("disallow"),
             },
             {
                 "text": "部員",
                 "color": "#f87",
                 "hoveredColor": "#f98",
+                "click": () => showNotice("未実装") | playAudio("disallow"),
             },
             {
                 "text": "ライブ",
                 "color": "#e28",
                 "hoveredColor": "#f39",
+                "click": () => showNotice("未実装") | playAudio("disallow"),
             },
             {
                 "text": "イベント",
                 "color": "#f89",
                 "hoveredColor": "#f9a",
+                "click": () => showNotice("未実装") | playAudio("disallow"),
             },
             {
                 "text": "ショップ",
                 "color": "#b9d",
                 "hoveredColor": "#cae",
+                "click": () => showNotice("未実装") | playAudio("disallow"),
             },
             {
                 "text": "勧誘",
                 "color": "#f9b",
                 "hoveredColor": "#fac",
+                "click": () => showNotice("未実装") | playAudio("disallow"),
             },
         ].forEach(parameter => $("#menu").appendChild(button(parameter)));
     }
@@ -213,6 +228,7 @@
             const matched = node.childNodes[0].textContent.match(regex);
             node.textContent = node.textContent.replace(regex, parameter[matched[1]]);
         };
+        button.addEventListener("click", event => parameter.click(event));
         [...button.querySelectorAll("*")]
             .filter(node => node.childNodes[0].textContent.match(regex))
             .forEach(replace);
@@ -228,6 +244,5 @@
             .forEach(replaceAttributes);
         return button;
     }
-
     window.onload = main;
 })();
