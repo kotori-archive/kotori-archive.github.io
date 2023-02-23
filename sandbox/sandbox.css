@@ -9,6 +9,10 @@
     font-family: "main";
 }
 
+.container * {
+    user-select: none;
+}
+
 .member-list {
     padding: 2px 0px;
     background-color: #fff;
@@ -99,7 +103,6 @@
     display: flex;
     margin-top: 14px;
     font-size: 21px;
-    user-select: none;
 }
 
 .member-detail .info-panel .basic .label {
@@ -147,7 +150,6 @@
     margin-top: 7px;
     margin-bottom: 6px;
     font-size: 21px;
-    user-select: none;
     padding-right: 10px;
 }
 
@@ -178,7 +180,6 @@
     font-family: "status-number";
     font-size: 28px;
     padding-top: 1px;
-    user-select: none;
     margin-bottom: 4px;
 }
 
@@ -234,7 +235,7 @@
     color: #fff;
     font-weight: bold;
     letter-spacing: -7px;
-    padding-left: 5px;
+    padding-left: 6px;
     font-size: 20px;
 }
 
@@ -282,7 +283,6 @@
     padding-top: 2px;
     font-size: 19px;
     text-align: center;
-    user-select: none;
 }
 
 .menu-bar {
@@ -370,7 +370,6 @@ body {
     box-sizing: border-box;
     border-style: solid;
     border-color: transparent transparent transparent #eee;
-    user-select: none;
 }
 
 #start:hover {
