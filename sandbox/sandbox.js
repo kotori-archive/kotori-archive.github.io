@@ -7,7 +7,17 @@
     const backButton = {
         "action": () => {},
         "clear": () => backButton.action = () => {},
+        "hide": () => $(".button-back").classList.add("hide"),
+        "show": () => $(".button-back").classList.remove("hide"),
     };
+    const sceneControl = {
+        "destructor": () => {},
+        "destruct": () => {
+            sceneControl.destructor();
+            sceneControl.destructor = () => {};
+        },
+    };
+    const lock = lock => lock ? $("#lock").classList.remove("hide") : $("#lock").classList.add("hide");
 
     const myCard = [
         {"id": "3563", "level": {"current": 120, "max": 120}, "kizuna": {"current": 1000, "max": 1000}, "status": {"smile": 6040, "pure": 22266, "cool": 9912}, "skill": {"level": 8, "value": ["64", "43%", "19485"]}},
@@ -29,6 +39,7 @@
     function main() {
         initializeAudio();
         initMenu();
+        initMemberMenu();
         loadCards();
         $(".button-back").addEventListener("click", () => backButton.action());
         $(".member-list").addEventListener("wheel", event => {
@@ -45,7 +56,7 @@
             playAudio("backgroundMain", true);
             $("#start").classList.toggle("hide");
         });
-        updateInterfaceName("部員リスト");
+        showMemberMenu();
     }
 
     function showNotice(text) {
@@ -126,12 +137,14 @@
         playAudio("buttonCancel");
         $(".member-detail .info-panel").classList.add("kill");
         $(".member-detail .image").classList.add("kill");
+        lock(true);
         setTimeout(() => {
             updateInterfaceName("部員リスト");
             $(".member-list").classList.remove("hide");
             $(".member-detail").classList.add("hide");
             $(".member-detail .info-panel").classList.remove("kill");
             $(".member-detail .image").classList.remove("kill");
+            lock(false);
         }, 1000);
         backButton.clear();
     }
@@ -172,6 +185,63 @@
         }, description);
     }
 
+    function showMemberMenu() {
+        sceneControl.destruct();
+        updateInterfaceName("部員メニュー");
+        $(".member-menu").classList.remove("hide");
+        sceneControl.destructor = () => $(".member-menu").classList.add("hide");
+        backButton.action = () => showMemberMenu();
+    }
+
+    function showMemberList() {
+        sceneControl.destruct();
+        sceneControl.destructor = () => {
+            $(".member-list").classList.add("hide");
+            $(".member-detail").classList.add("hide");
+            backButton.clear();
+            backButton.hide();
+        };
+        $(".member-list").classList.remove("hide");
+        backButton.show();
+        backButton.action = () => playAudio("buttonCancel") | showMemberMenu();
+        updateInterfaceName("部員リスト");
+    }
+
+    function initMemberMenu() {
+        const buttons = [
+            {
+                "text": "ユニット編成",
+                "color": {
+                    "background": "#f56299",
+                    "hover": "#f57faa",
+                    "font": "#cc4e7c",
+                },
+                "action": () => showNotice("未実装") | playAudio("disallow"),
+            },
+            {
+                "text": "部員リスト",
+                "color": {
+                    "background": "#55c2ff",
+                    "hover": "#78cdff",
+                    "font": "#469cc7",
+                },
+                "action": () => {
+                    playAudio("buttonMain");
+                    showMemberList();
+                },
+            },
+        ];
+        buttons.forEach(button => {
+            const node = $(".template .button-common").cloneNode(true);
+            node.querySelector(".layer-2").innerText = button.text;
+            node.style.setProperty("--button-color", button.color.background);
+            node.style.setProperty("--hover-color", button.color.hover);
+            node.style.setProperty("--font-color", button.color.font);
+            node.addEventListener("click", event => button.action(event));
+            $(".member-menu").appendChild(node);
+        });
+    }
+
     function initMenu() {
         [
             {
@@ -190,7 +260,7 @@
                 "text": "部員",
                 "color": "#f87",
                 "hoveredColor": "#f98",
-                "click": () => showNotice("未実装") | playAudio("disallow"),
+                "click": () => showMemberMenu() | playAudio("buttonMain"),
             },
             {
                 "text": "ライブ",
