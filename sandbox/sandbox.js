@@ -113,8 +113,7 @@
             icon.style.border = `solid 6px #${borderColor[data[card.id].type]}`
             icon.addEventListener("click", () => {
                 playAudio("buttonMain");
-                $(".member-list").classList.toggle("hide");
-                $(".member-list-status-bar").classList.toggle("hide");
+                $(".member-list").classList.add("hide");
                 showDetails(card, master);
                 backButton.action = () => closeCardDetail();
                 updateInterfaceName("部員詳細");
@@ -125,15 +124,14 @@
 
     function closeCardDetail() {
         playAudio("buttonCancel");
-        $(".member-detail .info-panel").classList.toggle("kill");
-        $(".member-detail .image").classList.toggle("kill");
+        $(".member-detail .info-panel").classList.add("kill");
+        $(".member-detail .image").classList.add("kill");
         setTimeout(() => {
             updateInterfaceName("部員リスト");
-            $(".member-list").classList.toggle("hide");
-            $(".member-detail").classList.toggle("hide");
-            $(".member-list-status-bar").classList.toggle("hide");
-            $(".member-detail .info-panel").classList.toggle("kill");
-            $(".member-detail .image").classList.toggle("kill");
+            $(".member-list").classList.remove("hide");
+            $(".member-detail").classList.add("hide");
+            $(".member-detail .info-panel").classList.remove("kill");
+            $(".member-detail .image").classList.remove("kill");
         }, 1000);
         backButton.clear();
     }
