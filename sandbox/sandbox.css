@@ -229,6 +229,17 @@
     height: 46px;
     border-radius: 23px;
     background-color: #f69;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: -7px;
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+.button-back .inner:hover {
+    background-color: #f7a;
 }
 
 .button {
