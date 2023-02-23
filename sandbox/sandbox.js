@@ -45,6 +45,7 @@
             playAudio("backgroundMain", true);
             $("#start").classList.toggle("hide");
         });
+        updateInterfaceName("部員リスト");
     }
 
     function initializeAudio() {
@@ -74,6 +75,16 @@
         }
     }
 
+    function updateInterfaceName(name) {
+        const interfaceName = $(".interface-name");
+        if (name) {
+            interfaceName.innerText = name;
+            interfaceName.classList.remove("hide");
+        } else {
+            interfaceName.classList.add("hide");
+        }
+    }
+
     function loadCards() {
         const path = BASE_PATH + "resource-card/main/data.json";
         const preprocess = data => data.reduce((map, card) => (map[card.id] = card, map), {});
@@ -98,6 +109,7 @@
                 $(".member-list-status-bar").classList.toggle("hide");
                 showDetails(card, master);
                 backButton.action = () => closeCardDetail();
+                updateInterfaceName("部員詳細");
             });
             memberList[index % 4].appendChild(icon);
         });
@@ -108,6 +120,7 @@
         $(".member-detail .info-panel").classList.toggle("kill");
         $(".member-detail .image").classList.toggle("kill");
         setTimeout(() => {
+            updateInterfaceName("部員リスト");
             $(".member-list").classList.toggle("hide");
             $(".member-detail").classList.toggle("hide");
             $(".member-list-status-bar").classList.toggle("hide");

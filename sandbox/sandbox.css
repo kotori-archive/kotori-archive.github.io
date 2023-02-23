@@ -316,6 +316,21 @@
     background-size: cover;
 }
 
+.interface-name {
+    box-sizing: border-box;
+    position: absolute;
+    top: 0px;
+    left: 100px;
+    background-color: #fff;
+    width: 330px;
+    height: 40px;
+    border: solid 2px #ec6b98;
+    border-radius: 20px;
+    padding-left: 76px;
+    font-size: 22px;
+    padding-top: 7px;
+}
+
 body {
     background-color: #b2b4b2;
 }
