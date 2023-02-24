@@ -188,7 +188,8 @@
     function showMemberMenu() {
         sceneControl.destruct();
         updateInterfaceName("部員メニュー");
-        $(".member-menu").classList.remove("hide");
+        $(".member-menu").classList.add("hide");
+        setTimeout(() => $(".member-menu").classList.remove("hide"), 0);
         sceneControl.destructor = () => $(".member-menu").classList.add("hide");
         backButton.action = () => showMemberMenu();
     }

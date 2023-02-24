@@ -35,7 +35,7 @@
 }
 
 .member-menu.hide .button-common {
-    left: 500px;
+    left: 600px;
     opacity: 0;
     transition: opacity 200ms ease-out;
 }
