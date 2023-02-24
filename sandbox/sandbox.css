@@ -24,6 +24,10 @@
     pointer-events: none;
 }
 
+.heroine img {
+    width: 72.5%;
+}
+
 .conversation {
     box-sizing: border-box;
     position: absolute;
@@ -44,10 +48,6 @@
     opacity: 1;
     transform: scale(1);
     transition: opacity 200ms ease-out, transform 200ms ease-out;
-}
-
-.heroine img {
-    width: 72.5%;
 }
 
 .member-menu {
