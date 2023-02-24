@@ -9,11 +9,45 @@
     background-color: #eee;
     position: relative;
     background-image: url("background.png");
+    background-position: center;
     overflow: hidden;
 }
 
 .container * {
     user-select: none;
+}
+
+.heroine {
+    position: absolute;
+    bottom: 0px;
+    left: -86px;
+    pointer-events: none;
+}
+
+.conversation {
+    box-sizing: border-box;
+    position: absolute;
+    left: 121px;
+    bottom: 85px;
+    width: 398px;
+    height: 89px;
+    padding: 12px;
+    font-size: 18px;
+    border: 2px solid rgba(160, 160, 160, .9375);
+    border-radius: 7px;
+    background-color: rgba(240, 240, 240, .9375);
+    transform: scale(0);
+    opacity: 0;
+}
+
+.conversation.new {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.heroine img {
+    width: 72.5%;
 }
 
 .member-menu {

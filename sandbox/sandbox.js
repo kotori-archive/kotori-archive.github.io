@@ -40,6 +40,8 @@
         initializeAudio();
         initMenu();
         initMemberMenu();
+        initBackground("000");
+        initRandomVoice();
         loadCards();
         $(".button-back").addEventListener("click", () => backButton.action());
         $(".member-list").addEventListener("wheel", event => {
@@ -66,12 +68,48 @@
         setTimeout(() => notice.remove(), 4000);
     }
 
+    function initRandomVoice() {
+        let previous = false;
+        setInterval(() => {
+            const current = !$(".heroine").classList.contains("hide");
+            if (previous && current) {
+                playRandomVoice();
+
+            }
+            previous = current;
+        }, 6000);
+    }
+
+    function playRandomVoice() {
+        const pool = [
+            {"key": "voice000", "value": "あなたの元気な顔が見れて嬉しいです"},
+            {"key": "voice001", "value": "お疲れ様です♪頑張りすぎて、ないですか？"},
+            {"key": "voice002", "value": "サポートはことりにおまかせです"},
+        ];
+        const voice = pool[Math.floor(Math.random() * pool.length)];
+        playAudio(voice.key);
+        $(".conversation").innerText = voice.value;
+        $(".conversation").classList.remove("hide");
+        $(".conversation").classList.remove("new");
+        setTimeout(() => $(".conversation").classList.add("new"), 1);
+    }
+
+    function initBackground(id) {
+        $(".container").style.backgroundImage = `url("${BASE_PATH}resource-image/main/background/${id}.png")`;
+    }
+
     function initializeAudio() {
         const map = {
             "buttonMain": "sound_effect/001.mp3",
             "buttonCancel": "sound_effect/002.mp3",
             "disallow": "sound_effect/003.mp3",
             "backgroundMain": "background/001.mp3",
+            // あなたの元気な顔が見れて嬉しいです
+            "voice000": "voice/000.mp3",
+            // お疲れ様です♪頑張りすぎて、ないですか？
+            "voice001": "voice/001.mp3",
+            // サポートはことりにおまかせです
+            "voice002": "voice/002.mp3",
         };
         const audioBasePath = `${ BASE_PATH }resource-audio/main/`
         const loadAudio = async entry => await fetch(audioBasePath + entry[1])
@@ -119,7 +157,7 @@
             const master = data[card.id];
             const borderColor = {"smile": "db1e97", "pure": "42cd09", "cool": "5ebaf2"};
             icon.style.backgroundPosition = `left ${master.iconPosition.x}px top ${master.iconPosition.y}px`;
-            icon.style.backgroundImage = `url("${BASE_PATH}/resource-card/main/image/${card.id}_0.png")`
+            icon.style.backgroundImage = `url("${BASE_PATH}resource-card/main/image/${card.id}_0.png")`
             icon.style.backgroundSize = `${master.iconPosition.scale}%`;
             icon.style.border = `solid 6px #${borderColor[data[card.id].type]}`
             icon.addEventListener("click", () => {
@@ -189,8 +227,12 @@
         sceneControl.destruct();
         updateInterfaceName("部員メニュー");
         $(".member-menu").classList.add("hide");
+        $(".heroine").classList.remove("hide");
         setTimeout(() => $(".member-menu").classList.remove("hide"), 0);
-        sceneControl.destructor = () => $(".member-menu").classList.add("hide");
+        sceneControl.destructor = () => {
+            $(".member-menu").classList.add("hide");
+            $(".conversation").classList.add("hide");
+        };
         backButton.action = () => showMemberMenu();
     }
 
@@ -203,6 +245,7 @@
             backButton.hide();
         };
         $(".member-list").classList.remove("hide");
+        $(".heroine").classList.add("hide");
         backButton.show();
         backButton.action = () => playAudio("buttonCancel") | showMemberMenu();
         updateInterfaceName("部員リスト");
