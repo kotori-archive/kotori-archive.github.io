@@ -184,7 +184,7 @@
             $(".member-detail .image").classList.remove("kill");
             lock(false);
         }, 1000);
-        backButton.clear();
+        backButton.action = () => playAudio("buttonCancel") | showMemberMenu();
     }
 
     function showDetails(card, master) {
