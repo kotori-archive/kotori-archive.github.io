@@ -216,6 +216,7 @@
                     "hover": "#f57faa",
                     "font": "#cc4e7c",
                 },
+                "delay": "0ms",
                 "action": () => showNotice("未実装") | playAudio("disallow"),
             },
             {
@@ -225,6 +226,7 @@
                     "hover": "#78cdff",
                     "font": "#469cc7",
                 },
+                "delay": "50ms",
                 "action": () => {
                     playAudio("buttonMain");
                     showMemberList();
@@ -237,6 +239,7 @@
             node.style.setProperty("--button-color", button.color.background);
             node.style.setProperty("--hover-color", button.color.hover);
             node.style.setProperty("--font-color", button.color.font);
+            node.style.setProperty("--delay", button.delay);
             node.addEventListener("click", event => button.action(event));
             $(".member-menu").appendChild(node);
         });
