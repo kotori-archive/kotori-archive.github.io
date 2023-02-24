@@ -35,7 +35,7 @@
     font-size: 18px;
     border: 2px solid rgba(160, 160, 160, .9375);
     border-radius: 7px;
-    background-color: rgba(240, 240, 240, .9375);
+    background-color: rgba(245, 245, 245, .9375);
     transform: scale(0);
     opacity: 0;
 }
