@@ -644,16 +644,17 @@
     align-items: center;
     color: var(--font-color);
     font-weight: bold;
-    padding-left: 20px;
+    font-size: 19px;
+    padding: 2px 0px 0px 20px;
     text-shadow: 
-        -1px -1px 0px #fff,
-         0px -1px 0px #fff,
-         1px -1px 0px #fff,
-        -1px  0px 0px #fff,
-         1px  0px 0px #fff,
-        -1px  1px 0px #fff,
-         0px  1px 0px #fff,
-         1px  1px 0px #fff;
+        -2px -2px 0px #fff,
+         0px -2px 0px #fff,
+         2px -2px 0px #fff,
+        -2px  0px 0px #fff,
+         2px  0px 0px #fff,
+        -2px  2px 0px #fff,
+         0px  2px 0px #fff,
+         2px  2px 0px #fff;
 }
 
 .menu-bar {
