@@ -228,10 +228,12 @@
         updateInterfaceName("部員メニュー");
         $(".member-menu").classList.add("hide");
         $(".heroine").classList.remove("hide");
+        $(".player-info-bar").classList.remove("hide");
         setTimeout(() => $(".member-menu").classList.remove("hide"), 0);
         sceneControl.destructor = () => {
             $(".member-menu").classList.add("hide");
             $(".conversation").classList.add("hide");
+            $(".player-info-bar").classList.add("hide");
         };
         backButton.action = () => showMemberMenu();
     }
