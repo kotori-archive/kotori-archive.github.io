@@ -42,6 +42,7 @@
         initMemberMenu();
         initBackground("000");
         initRandomVoice();
+        initHome();
         loadCards();
         $(".player-info-bar .heal").addEventListener("click", () => showNotice("未実装") | playAudio("disallow"));
         $(".button-back").addEventListener("click", () => backButton.action());
@@ -235,6 +236,7 @@
             $(".member-menu").classList.add("hide");
             $(".conversation").classList.add("hide");
             $(".player-info-bar").classList.add("hide");
+            $(".heroine").classList.add("hide");
         };
         backButton.action = () => showMemberMenu();
     }
@@ -248,7 +250,6 @@
             backButton.hide();
         };
         $(".member-list").classList.remove("hide");
-        $(".heroine").classList.add("hide");
         backButton.show();
         backButton.action = () => playAudio("buttonCancel") | showMemberMenu();
         updateInterfaceName("部員リスト");
@@ -292,13 +293,32 @@
         });
     }
 
+    function showHome() {
+        sceneControl.destruct();
+        sceneControl.destructor = () => {
+            $(".heroine").classList.add("hide");
+            $(".player-info-bar").classList.add("hide");
+            $(".home").classList.add("hide");
+        };
+        updateInterfaceName();
+        $(".heroine").classList.remove("hide");
+        $(".player-info-bar").classList.remove("hide");
+        $(".home").classList.remove("hide");
+    }
+
+    function initHome() {
+        $$(".home .circle-button").forEach(node => {
+            node.addEventListener("click", () => showNotice("未実装") | playAudio("disallow"))
+        });
+    }
+
     function initMenu() {
         [
             {
                 "text": "ホーム",
                 "color": "#7ea",
                 "hoveredColor": "#8fb",
-                "click": () => showNotice("未実装") | playAudio("disallow"),
+                "click": () => showHome() | playAudio("buttonMain"),
             },
             {
                 "text": "ストーリー",

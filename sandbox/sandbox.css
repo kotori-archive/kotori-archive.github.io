@@ -50,6 +50,55 @@
     transition: opacity 200ms ease-out, transform 200ms ease-out;
 }
 
+.home {
+    box-sizing: border-box;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.home .circle-buttons {
+    display: flex;
+    box-sizing: border-box;
+    position: absolute;
+    left: 605px;
+    top: 335px;
+}
+
+.home .circle-button {
+    box-sizing: border-box;
+    background-color: transparent;
+    width: 93px;
+    height: 93px;
+    border-radius: 50%;
+    border: 3px solid #acc;
+    margin-right: 42px;
+    cursor: pointer;
+}
+
+.home .circle-button .inner {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.home .circle-button .inner-0 {
+    border: 4px solid #fff;
+}
+
+.home .circle-button .inner-1 {
+    border: 3px solid #acc;
+    background-color: rgba(170, 204, 204, .5);
+    text-align: center;
+    white-space: nowrap;
+    font-weight: bold;
+    padding-top: 55px;
+    color: #444;
+}
+
 .player-info-bar {
     box-sizing: border-box;
     position: absolute;
@@ -646,15 +695,6 @@
     font-weight: bold;
     font-size: 19px;
     padding: 2px 0px 0px 20px;
-    text-shadow: 
-        -2px -2px 0px #fff,
-         0px -2px 0px #fff,
-         2px -2px 0px #fff,
-        -2px  0px 0px #fff,
-         2px  0px 0px #fff,
-        -2px  2px 0px #fff,
-         0px  2px 0px #fff,
-         2px  2px 0px #fff;
 }
 
 .menu-bar {
@@ -817,4 +857,16 @@ body {
 @font-face {
     font-family: main;
     src: url("font/KosugiMaru-Regular.ttf");
+}
+
+.text-highlight-white {
+    text-shadow: 
+        -2px -2px 0px #ffe,
+         0px -2px 0px #ffe,
+         2px -2px 0px #ffe,
+        -2px  0px 0px #ffe,
+         2px  0px 0px #ffe,
+        -2px  2px 0px #ffe,
+         0px  2px 0px #ffe,
+         2px  2px 0px #ffe;
 }
