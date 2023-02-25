@@ -469,6 +469,7 @@
     color: #5a7e8d;
     font-weight: 600;
     min-width: 53px;
+    white-space: nowrap;
 }
 
 .member-detail .info-panel .skill .content {
