@@ -43,6 +43,7 @@
         initBackground("000");
         initRandomVoice();
         loadCards();
+        $(".player-info-bar .heal").addEventListener("click", () => showNotice("未実装") | playAudio("disallow"));
         $(".button-back").addEventListener("click", () => backButton.action());
         $(".member-list").addEventListener("wheel", event => {
             event.preventDefault();
