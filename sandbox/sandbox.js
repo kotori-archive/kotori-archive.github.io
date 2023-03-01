@@ -41,7 +41,6 @@
         initMenu();
         initMemberMenu();
         initBackground("000");
-        initRandomVoice();
         initHome();
         loadCards();
         $(".player-info-bar .heal").addEventListener("click", () => showNotice("未実装") | playAudio("disallow"));
@@ -55,12 +54,7 @@
             const result = Math.min(Math.max(0, parseInt(list.style.right, 10) + direction * speed), maxScroll);
             list.style.right = `${ result }px`
         });
-        $("#start").addEventListener("click", () => {
-            audioContext.resume().then(() => console.log("resumed audio"));
-            playAudio("backgroundMain", true);
-            $("#start").classList.toggle("hide");
-        });
-        showMemberMenu();
+        showHome();
     }
 
     function showNotice(text) {
@@ -76,7 +70,6 @@
             const current = !$(".heroine").classList.contains("hide");
             if (previous && current) {
                 playRandomVoice();
-
             }
             previous = current;
         }, 6000);
@@ -101,6 +94,7 @@
     }
 
     function initializeAudio() {
+        let progress = 0;
         const map = {
             "buttonMain": "sound_effect/001.mp3",
             "buttonCancel": "sound_effect/002.mp3",
@@ -112,16 +106,37 @@
             "voice001": "voice/001.mp3",
             // サポートはことりにおまかせです
             "voice002": "voice/002.mp3",
+            // ブシモ
+            "voice003": "voice/003.mp3",
         };
+        const log = $("#loading .log");
+        const size = Object.keys(map).length;;
         const audioBasePath = `${ BASE_PATH }resource-audio/main/`
+        const logs = filename => log.innerText += `Loaded: ${filename}\n`;
+        const message = "Done. Click on anywhere to continue";
+        const check = () => ++progress == size && (log.innerText += message) | loadingScreen();
         const loadAudio = async entry => await fetch(audioBasePath + entry[1])
             .then(response => response.arrayBuffer())
             .then(buffer => audioContext.decodeAudioData(buffer))
-            .then(buffer => audioMap[entry[0]] = buffer);
+            .then(buffer => (audioMap[entry[0]] = buffer) | logs(entry[1]) | check());
         Object
             .entries(map)
             .forEach(entry => loadAudio(entry));
-        return audioMap;
+    }
+
+    function loadingScreen() {
+        const loading = $("#loading");
+        loading.classList.add("finish");
+        loading.addEventListener("click", () => $("#loading .log").remove() | audioContext.resume().then(() => {
+            loading.classList.remove("finish");
+            const company = $("#loading .company");
+            company.classList.remove("hide");
+            company.classList.add("animation");
+            playAudio("voice003");
+            const attention = $("#loading .attention").classList;
+            setTimeout(() => company.remove() | attention.remove("hide") | attention.add("animation"), 4000);
+            setTimeout(() => loading.remove() | initRandomVoice() | playAudio("backgroundMain", true), 8000);
+        }), { "once": true });
     }
 
     function playAudio(id, loop) {

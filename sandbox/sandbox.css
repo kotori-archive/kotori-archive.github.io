@@ -762,32 +762,6 @@ body {
     visibility: hidden;
 }
 
-#start {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#start::after {
-    width: 100px;
-    height: 100px;
-    content: "";
-    border-width: 50px 0px 50px 100px;
-    box-sizing: border-box;
-    border-style: solid;
-    border-color: transparent transparent transparent #eee;
-}
-
-#start:hover {
-    cursor: pointer;
-}
-
 #lock {
     position: absolute;
     left: 0px;
@@ -841,11 +815,89 @@ body {
     font-size: 36px;
 }
 
+#loading {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #fff;
+}
+
+#loading.finish {
+    cursor: pointer;
+}
+
+#loading .log {
+    box-sizing: border-box;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    padding: 8px;
+    background-color: #fff;
+    color: #444;
+}
+
+#loading .company {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://raw.githubusercontent.com/kotori-archive/resource-image/main/loading/bushimo.png");
+    opacity: 0;
+}
+
+#loading .company.animation {
+    animation-name: fade-start, fade-end, klab, fade-start, fade-end;
+    animation-delay: 0ms, 1500ms, 2000ms, 2000ms, 3500ms;
+    animation-duration: 500ms, 500ms, 0ms, 500ms, 500ms;
+    animation-fill-mode: forwards;
+}
+
+#loading .attention {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#loading .attention.animation {
+    animation-name: fade-start, fade-end;
+    animation-delay: 0ms, 3000ms;
+    animation-duration: 500ms, 500ms;
+    animation-fill-mode: forwards;
+}
+
+#loading .attention .header {
+    color: #e17;
+    font-size: 28px;
+    margin: 16px 0px;
+}
+
+#loading .attention .header::before, #loading .attention .header::after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 51px;
+    margin: 0px 8px;
+    border-bottom: 2px solid #e17;
+}
+
+#loading .attention .body {
+    font-size: 21px;
+    margin: 4px 0px;
+}
+
+@keyframes klab {
+    to { background-image: url("https://raw.githubusercontent.com/kotori-archive/resource-image/main/loading/klab.png"); }
+}
+
 @keyframes fade-start {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 @keyframes fade-end {
+    from { opacity: 1; }
     to { opacity: 0; }
 }
 
